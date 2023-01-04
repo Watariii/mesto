@@ -11,20 +11,44 @@
       <div class="header__logo"></div>
     </header>
     <main class="content">
-      <div class="profile">
-        <img src="#" alt="аватар" class="profile__avatar" />
+      <section class="profile">
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <h2 class="profile__subtitle">Исследователь океана</h2>
+          <img src="./images/image.png" alt="Аватар" class="profile__avatar" />
+          <ul class="profile__list">
+            <h1 class="profile__title">
+              Жак-Ив Кусто<button class="profile__button-info" type="button"></button>
+            </h1>
+            <h2 class="profile__subtitle">Исследователь океана</h2>
+          </ul>
         </div>
-        <div class="profile__button"></div>
-      </div>
-      <div class="photo-elements">
+        <button class="profile__button" type="button"></button>
+      </section>
+      <section class="photo-elements">
         <figure class="photo-elements__item">
-          <figcaption class="photo-elements__title"></figcaption>
-          <div class="photo-elements__like"></div>
+          <img src="./images/karachaevsk-min.jpg" alt="Карачаевск" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Карачаевск</p><button class="photo-elements__like" type="button"></button></figcaption>
         </figure>
-      </div>
+        <figure class="photo-elements__item">
+          <img src="./images/elbrus.png" alt="Гора Эльбрус" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Гора Эльбрус</p><button class="photo-elements__like" type="button"></button></figcaption>
+        </figure>
+        <figure class="photo-elements__item">
+          <img src="./images/dombay.png" alt="Домбай" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Домбай</p><button class="photo-elements__like" type="button"></button></figcaption>
+        </figure>
+        <figure class="photo-elements__item">
+          <img src="./images/beach-volga.jpg" alt="Волги" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Волга</p><button class="photo-elements__like" type="button"></button></figcaption>
+        </figure>
+        <figure class="photo-elements__item">
+          <img src="./images/karelia.jpg" alt="Карелия" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Карелия</p><button class="photo-elements__like" type="button"></button></figcaption>
+        </figure>
+        <figure class="photo-elements__item">
+          <img src="./images/petropavlovs-kamchatskiy-min.jpg" alt="Петропавловск-Камчатский" class="photo-elements__capture" />
+          <figcaption class="photo-elements__caption"><p class="photo-elements__title">Петропавловск-Камчатский</p><button class="photo-elements__like" type="button"></button></figcaption>
+        </figure>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>

@@ -1,0 +1,12 @@
+.photo-elements__like {
+    width: 22px;
+    height: 19px;
+    border: none;
+    background-image: url(../../../images/like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: 4px;
+    padding: 0 11px 0 11px;
+}
