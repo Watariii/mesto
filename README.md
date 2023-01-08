@@ -19,4 +19,8 @@
 
 **GitHub**
 
+<<<<<<< HEAD
 * [Ссылка проекта на GitHub] (https://watariii.github.io/mesto/)
+=======
+[Ссылка проекта на GitHub:] (https://watariii.github.io/mesto/)
+>>>>>>> 95068748563ab61ef3394b86812028b211cc0d19
