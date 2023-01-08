@@ -1,5 +1,5 @@
 .photo-elements__title {
-    width: 100%;
+    max-width: 100%;
     color: black;
     font-style: normal;
     font-weight: 900;
