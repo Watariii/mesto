@@ -10,3 +10,18 @@
     overflow: hidden;
     margin: 0;
 }
+
+
+@media (max-width: 900px) {
+    .photo-elements__title {
+        font-size: 20px;
+        line-height: 23px;
+    }
+}
+
+@media (max-width: 730px) {
+    .photo-elements__title {
+        font-size: 24px;
+        line-height: 29px;
+    } 
+}

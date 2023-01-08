@@ -8,7 +8,7 @@
     margin-top: 51px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 730px) {
     .photo-elements {
         grid-template-columns: repeat(1,minmax(135px, 1fr));
         margin-top: 36px;

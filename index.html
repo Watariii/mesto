@@ -15,13 +15,13 @@
         <div class="profile__info">
           <img src="./images/image.png" alt="Аватар" class="profile__avatar" />
           <ul class="profile__list">
-            <h1 class="profile__title">
-              Жак-Ив Кусто<button
-                class="profile__button-info"
-                type="button"
-              ></button>
-            </h1>
-            <h2 class="profile__subtitle">Исследователь океана</h2>
+            <li class="profile__title">
+              <h1 class="profile__firstname">Жак-Ив Кусто</h1>
+              <button class="profile__button-info" type="button"></button>
+            </li>
+            <li class="profile__subtitle">
+              <h2 class="profile__job">Исследователь океана</h2>
+            </li>
           </ul>
         </div>
         <button class="profile__button" type="button"></button>
@@ -99,9 +99,19 @@
           <button class="pop-up__close-icon" type="button"></button>
           <p class="pop-up__title">Редактировать профиль</p>
           <form class="pop-up__form">
-            <input class="pop-up__input" type="text" name="firstname" placeholder="Имя Фамилия"/>
-            <input class="pop-up__input"type="text" name="profession" placeholder="Профессия"/>
-            <button class="pop-up__button" type="button">Сохранить</button>
+            <input
+              class="pop-up__input pop-up__firstname"
+              type="text"
+              name="firstname"
+              placeholder="Имя"
+            />
+            <input
+              class="pop-up__input pop-up__job"
+              type="text"
+              name="job"
+              placeholder="О себе"
+            />
+            <button class="pop-up__button" type="submit">Сохранить</button>
           </form>
         </div>
       </section>

@@ -1,0 +1,23 @@
+.profile__job {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+@media (max-width: 730px) {
+    .profile__job {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
+
+@media (max-width: 620px) {
+    .profile__job {
+        text-align: center;
+        margin-top: 7px;
+    }
+}
