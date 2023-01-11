@@ -4,6 +4,7 @@
     background-color: black;
     border: 1px solid #ffffff;
     background-image: url(../../../images/button-info.svg);
+    background-size: 10px 10px;
     background-repeat: no-repeat;
     background-position: center;
     box-sizing: border-box;
@@ -22,5 +23,6 @@
         width: 18px;
         height: 18px;
         margin-bottom: 7px;
+        background-size: 7.5px 7.5px;
     }
 }

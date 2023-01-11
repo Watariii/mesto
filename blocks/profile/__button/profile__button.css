@@ -4,12 +4,14 @@
     background-color: black;
     border: 2px solid #ffffff;
     background-image: url(../../../images/button.png);
+    background-size: 22px 22px;
     background-repeat: no-repeat;
     background-position: center;
     box-sizing: border-box;
     padding: 0;
     margin-left: 10px;
     cursor: pointer;
+    border-radius:  2px;
 }
 
 .profile__button:hover {
@@ -27,7 +29,8 @@
     .profile__button {
         width: 100%;
         margin-top: 33px;
-        background-size: 16px;
+        background-size: 16px 16px;
         margin-left: 0;
+        
     }
 }

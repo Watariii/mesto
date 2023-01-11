@@ -1,5 +1,7 @@
 .pop-up {
     display: none;
+    justify-content: space-around;
+    align-items: center;
     position: fixed;
     top: 0px;
     left: 0px;

@@ -1,6 +1,6 @@
 .profile__firstname {
-    max-width: 294px;
-    font-family: 'Inter';
+    max-width: 400px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 42px;

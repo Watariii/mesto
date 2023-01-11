@@ -5,10 +5,8 @@ let popUpCloseIcon = document.querySelector('.pop-up__close-icon');
 let profileFirstname = document.querySelector('.profile__firstname');
 let profileJob = document.querySelector('.profile__job');
 
-let popUpFirstname = document.querySelector('.pop-up__firstname');
-let popUpJob = document.querySelector('.pop-up__job');
-
-let popUpButton = document.querySelector('.pop-up__button');
+let popUpFirstname = document.querySelector('.pop-up__input_type_firstname');
+let popUpJob = document.querySelector('.pop-up__input_type_job');
 
 let popUpForm = document.querySelector('.pop-up__form');
 
@@ -16,13 +14,10 @@ function popUpOpened() {
     popUp.classList.add('pop-up_opened');    
     popUpFirstname.value = profileFirstname.textContent;
     popUpJob.value = profileJob.textContent;
-    return profileFirstname, profileJob;
 }
 
 function popUpClose() {
     popUp.classList.remove('pop-up_opened');
-    popUpFirstname.removeAttribute('value');
-    popUpJob.removeAttribute('value');
 }
 
 function handleFormSubmit (evt) {
@@ -36,5 +31,4 @@ function handleFormSubmit (evt) {
 
 profileButtonInfo.addEventListener('click', popUpOpened);
 popUpCloseIcon.addEventListener('click', popUpClose);
-popUpButton.addEventListener('click',handleFormSubmit);
 popUpForm.addEventListener('submit',handleFormSubmit);
