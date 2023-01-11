@@ -4,4 +4,6 @@
     border-top-right-radius: 10px;
     object-fit: cover;
     aspect-ratio: 1/1;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }

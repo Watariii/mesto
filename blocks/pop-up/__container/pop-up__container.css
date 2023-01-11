@@ -1,5 +1,6 @@
 .pop-up__container {
     position: fixed;
+    width: 100%;
     max-width: 430px;
     min-height: 330px;
     display: flex;
@@ -15,6 +16,7 @@
 @media (max-width: 530px) {
     .pop-up__container {
         width: 88.125%;
+        max-width: 400px;
         min-height: 322px;
         padding: 25px 22px 25px 22px;
     }

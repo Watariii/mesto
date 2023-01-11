@@ -19,6 +19,7 @@
 @import url(../blocks/profile/__list/profile__list.css);
 
 @import url(../blocks/photo-elements/photo-elements.css);
+@import url(../blocks/photo-elements/__list/photo-elements__list.css);
 @import url(../blocks/photo-elements/__item/photo-elements__item.css);
 @import url(../blocks/photo-elements/__caption/photo-elements__caption.css);
 @import url(../blocks/photo-elements/__like/photo-elements__like.css);
