@@ -1,3 +1,4 @@
+// --------Massives---------------------------------------------------------------------------------------
 const arrayCards = [
     {
       name: 'Петропавловск-Камчатский',
@@ -24,27 +25,32 @@ const arrayCards = [
       link: './images/karachaevsk-min.jpg'
     },
       
-  ];
-
+];
+const arrayNameCards = [];
+const arrayLinkCards = [];
+// --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector('.profile__button-info');
 const profileButtonCards = document.querySelector('.profile__button-cards')
 
-const popUpInfo = document.querySelector('.pop-up_info');
-const popUpCards = document.querySelector('.pop-up_cards')
+const popUpInfo = document.querySelector('.pop-up_type_info');
+const popUpCards = document.querySelector('.pop-up_type_cards')
 
-const popUpInfoCloseIcon = document.querySelector('.pop-up__close-icon_info');
-const popUpCardsCloseIcon = document.querySelector('.pop-up__close-icon_cards');
+const popUpInfoCloseIcon = document.querySelector('.pop-up__close-icon_type_info');
+const popUpCardsCloseIcon = document.querySelector('.pop-up__close-icon_type_cards');
 
 const profileFirstname = document.querySelector('.profile__firstname');
 const profileJob = document.querySelector('.profile__job');
 
 const popUpFirstname = document.querySelector('.pop-up__input_type_firstname');
 const popUpJob = document.querySelector('.pop-up__input_type_job');
+const popUpName = document.querySelector('.pop-up__input_type_name');
+const popUpLink = document.querySelector('.pop-up__input_type_link');
 
-const popUpForm = document.querySelector('.pop-up__form');
+const popUpFormInfo = document.querySelector('.pop-up__form_type_info');
+const popUpFormCards = document.querySelector('.pop-up__form_type_cards');
 
 const photoElementsList = document.querySelector('.photo-elements__list');
-
+// --------Pop-ups---------------------------------------------------------------------------------------
 const popUpInfoOpened = () => {
     popUpInfo.classList.add('pop-up_opened');    
     popUpFirstname.value = profileFirstname.textContent;
@@ -54,16 +60,6 @@ const popUpInfoOpened = () => {
 const popUpInfoClose = () => {
     popUpInfo.classList.remove('pop-up_opened');
 };
-
-const handleFormSubmit = evt => {
-    evt.preventDefault();
-    let changeFirstname = popUpFirstname.value;
-    let changeJob = popUpJob.value;
-    profileFirstname.textContent = changeFirstname;
-    profileJob.textContent = changeJob;
-    popUpInfoClose();
-};
-
 const popUpCardsOpened = () => {
     popUpCards.classList.add('pop-up_opened');
 };
@@ -71,15 +67,25 @@ const popUpCardsOpened = () => {
 const popUpCardsClose = () => {
     popUpCards.classList.remove('pop-up_opened');
 };
+// --------Handle form for Info---------------------------------------------------------------------------------------
+const handleFormInfoSubmit = evt => {
+    evt.preventDefault();
+    const changeFirstname = popUpFirstname.value;
+    const changeJob = popUpJob.value;
+    profileFirstname.textContent = changeFirstname;
+    profileJob.textContent = changeJob;
+    popUpInfoClose();
+};
+// --------Creating two massives from one---------------------------------------------------------------------------------------
+const arrayNameAndLinkCreate = () => {
+    for (i=0; i<arrayCards.length; i+=1){
+    arrayNameCards[i] = arrayCards[i].name;
+    arrayLinkCards[i] = arrayCards[i].link
+};
+};
 
-const arrayNameCards = arrayCards.map((item) => {
-    return item.name;
-});
-
-const arrayLinkCards = arrayCards.map((item) => {
-    return item.link;
-});
-
+arrayNameAndLinkCreate();
+// --------Creating and rendering cards---------------------------------------------------------------------------------------
 const createCards = (arrayNameCards, arrayLinkCards) => {
     const template = `
         <li>
@@ -103,18 +109,42 @@ const createCards = (arrayNameCards, arrayLinkCards) => {
     return container.firstElementChild;
 };
 
-const addCards = (arrayNameCards, arrayLinkCards) => {
+const renderCards = (arrayNameCards, arrayLinkCards) => {
     photoElementsList.prepend(createCards(arrayNameCards, arrayLinkCards));
 };
-
-for (i=0; i<arrayCards.length; i+=1) {
-    addCards(arrayNameCards[i],arrayLinkCards[i])
+// --------Adding first six cards---------------------------------------------------------------------------------------
+const AddFirstSixCards = () => {
+    for (i=0; i<arrayCards.length; i+=1) {
+    renderCards(arrayNameCards[i],arrayLinkCards[i])
+}
 };
+AddFirstSixCards();
+// --------Handle form cards for new cards---------------------------------------------------------------------------------------
+const handleFormCardsSubmit = (evt) => {
+    evt.preventDefault();
+    const changeName = popUpName.value;
+    const changeLink = popUpLink.value;
+    const newObject ={};
+    
+    newObject.name = changeName;
+    newObject.link = changeLink;
 
+    arrayCards.push(newObject);
+    arrayNameAndLinkCreate(arrayCards);
+    renderCards(changeName,changeLink);
+    
+    popUpName.value='';
+    popUpLink.value='';
+
+    popUpCardsClose();
+};
+// --------Launch functions by events---------------------------------------------------------------------------------------
 profileButtonInfo.addEventListener('click', popUpInfoOpened);
 popUpInfoCloseIcon.addEventListener('click', popUpInfoClose);
 
-popUpForm.addEventListener('submit',handleFormSubmit);
+popUpFormInfo.addEventListener('submit',handleFormInfoSubmit);
+popUpFormCards.addEventListener('submit',handleFormCardsSubmit);
+
 
 profileButtonCards.addEventListener('click', popUpCardsOpened);
 popUpCardsCloseIcon.addEventListener('click', popUpCardsClose);
