@@ -21,6 +21,7 @@
 @import url(../blocks/photo-elements/photo-elements.css);
 @import url(../blocks/photo-elements/__list/photo-elements__list.css);
 @import url(../blocks/photo-elements/__item/photo-elements__item.css);
+@import url(../blocks/photo-elements/__delete/photo-elements__delete.css);
 @import url(../blocks/photo-elements/__caption/photo-elements__caption.css);
 @import url(../blocks/photo-elements/__like/photo-elements__like.css);
 @import url(../blocks/photo-elements/__like/_active/photo-elements__like_active.css);

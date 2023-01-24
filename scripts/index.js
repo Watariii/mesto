@@ -77,19 +77,21 @@ const handleFormInfoSubmit = evt => {
     popUpInfoClose();
 };
 // --------Creating two massives from one---------------------------------------------------------------------------------------
-const arrayNameAndLinkCreate = () => {
-    for (i=0; i<arrayCards.length; i+=1){
-    arrayNameCards[i] = arrayCards[i].name;
-    arrayLinkCards[i] = arrayCards[i].link
-};
-};
 
+const arrayNameAndLinkCreate = () =>{
+    for (i=0; i<arrayCards.length; ++i) {
+        arrayNameCards[i]=arrayCards[i].name;
+        arrayLinkCards[i]=arrayCards[i].link;
+    }
+}
 arrayNameAndLinkCreate();
-// --------Creating and rendering cards---------------------------------------------------------------------------------------
+
+// --------Creating and rendering cards, toggle like, delete cards--------------------------------------------------------------
 const createCards = (arrayNameCards, arrayLinkCards) => {
     const template = `
         <li>
         <article class="photo-elements__item">
+        <button class="photo-elements__delete" type="button"></button>
         <img
             src=""
             alt=""
@@ -102,11 +104,20 @@ const createCards = (arrayNameCards, arrayLinkCards) => {
         `;
     const container = document.createElement('div');
     container.innerHTML = template;
-    container.querySelector('.photo-elements__title').textContent = arrayNameCards;
-    container.querySelector('.photo-elements__capture').setAttribute('src',arrayLinkCards);
-    container.querySelector('.photo-elements__capture').setAttribute('alt',arrayNameCards);
+    const photoElements = container.children[0];
+    photoElements.querySelector('.photo-elements__title').textContent = arrayNameCards;
+    photoElements.querySelector('.photo-elements__capture').setAttribute('src',arrayLinkCards);
+    photoElements.querySelector('.photo-elements__capture').setAttribute('alt',arrayNameCards);
 
-    return container.firstElementChild;
+    const photoElementsButtonLike = container.querySelector('.photo-elements__like');
+    photoElementsButtonLike.addEventListener('click', () => {
+         photoElementsButtonLike.classList.toggle('photo-elements__like_active');
+    });
+    const photoElementsButtonDelete = container.querySelector('.photo-elements__delete');
+    photoElementsButtonDelete.addEventListener('click', () => {
+        photoElements.remove();
+    });
+    return photoElements;
 };
 
 const renderCards = (arrayNameCards, arrayLinkCards) => {
@@ -119,7 +130,7 @@ const AddFirstSixCards = () => {
 }
 };
 AddFirstSixCards();
-// --------Handle form cards for new cards---------------------------------------------------------------------------------------
+// --------Handle form cards for new cards------------------------------------------------------------------------------
 const handleFormCardsSubmit = (evt) => {
     evt.preventDefault();
     const changeName = popUpName.value;
@@ -130,7 +141,7 @@ const handleFormCardsSubmit = (evt) => {
     newObject.link = changeLink;
 
     arrayCards.push(newObject);
-    arrayNameAndLinkCreate(arrayCards);
+    arrayNameAndLinkCreate();
     renderCards(changeName,changeLink);
     
     popUpName.value='';
@@ -138,7 +149,7 @@ const handleFormCardsSubmit = (evt) => {
 
     popUpCardsClose();
 };
-// --------Launch functions by events---------------------------------------------------------------------------------------
+// --------Launch functions by events------------------------------------------------------------------------------------
 profileButtonInfo.addEventListener('click', popUpInfoOpened);
 popUpInfoCloseIcon.addEventListener('click', popUpInfoClose);
 
