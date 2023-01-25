@@ -50,7 +50,12 @@ const popUpFormInfo = document.querySelector('.pop-up__form_type_info');
 const popUpFormCards = document.querySelector('.pop-up__form_type_cards');
 
 const photoElementsList = document.querySelector('.photo-elements__list');
-// --------Pop-ups---------------------------------------------------------------------------------------
+
+const popUpExtendCap = document.querySelector('.pop-up_type_extend-cap');
+const popUpCapture = document.querySelector('.pop-up__capture');
+const popUpTitleExtendCap = document.querySelector('.pop-up__title_type_extend-cap');
+const popUpExtendCapCloseIcon = document.querySelector('.pop-up__close-icon_type_extend-cap');
+// --------Pop-ups info, cards, extend capture---------------------------------------------------------------------------------------
 const popUpInfoOpened = () => {
     popUpInfo.classList.add('pop-up_opened');    
     popUpFirstname.value = profileFirstname.textContent;
@@ -67,6 +72,9 @@ const popUpCardsOpened = () => {
 const popUpCardsClose = () => {
     popUpCards.classList.remove('pop-up_opened');
 };
+const popUpExtendCapClose =() => {
+    popUpExtendCap.classList.remove('pop-up_opened');
+};
 // --------Handle form for Info---------------------------------------------------------------------------------------
 const handleFormInfoSubmit = evt => {
     evt.preventDefault();
@@ -76,7 +84,7 @@ const handleFormInfoSubmit = evt => {
     profileJob.textContent = changeJob;
     popUpInfoClose();
 };
-// --------Creating two massives from one---------------------------------------------------------------------------------------
+// --------Creating two massives from one------------------------------------------------------------------------------
 
 const arrayNameAndLinkCreate = () =>{
     for (i=0; i<arrayCards.length; ++i) {
@@ -86,7 +94,7 @@ const arrayNameAndLinkCreate = () =>{
 }
 arrayNameAndLinkCreate();
 
-// --------Creating and rendering cards, toggle like, delete cards--------------------------------------------------------------
+//---------Creating cards---------------------------------------------------------------------------------------------
 const createCards = (arrayNameCards, arrayLinkCards) => {
     const template = `
         <li>
@@ -108,18 +116,28 @@ const createCards = (arrayNameCards, arrayLinkCards) => {
     photoElements.querySelector('.photo-elements__title').textContent = arrayNameCards;
     photoElements.querySelector('.photo-elements__capture').setAttribute('src',arrayLinkCards);
     photoElements.querySelector('.photo-elements__capture').setAttribute('alt',arrayNameCards);
-
-    const photoElementsButtonLike = container.querySelector('.photo-elements__like');
+//----------Creating cards: Toggling like----------------------------------------------------------------------------------------------
+    const photoElementsButtonLike = photoElements.querySelector('.photo-elements__like');
     photoElementsButtonLike.addEventListener('click', () => {
          photoElementsButtonLike.classList.toggle('photo-elements__like_active');
     });
-    const photoElementsButtonDelete = container.querySelector('.photo-elements__delete');
+//----------Creating cards: Deleting cards---------------------------------------------------------------------------------------------
+    const photoElementsButtonDelete = photoElements.querySelector('.photo-elements__delete');
     photoElementsButtonDelete.addEventListener('click', () => {
         photoElements.remove();
     });
+//----------Creating cards: Extended capture---------------------------------------------------------------------------------------------
+    const photoElementsCapture = photoElements.querySelector('.photo-elements__capture');
+    photoElementsCapture.addEventListener('click', () => {
+        popUpExtendCap.classList.add('pop-up_opened');
+        popUpCapture.setAttribute('src',arrayLinkCards);
+        popUpCapture.setAttribute('alt',arrayNameCards);
+        popUpTitleExtendCap.textContent = arrayNameCards;
+    })
+//---------Creating cards finish--------------------------------------------------------------------------------------------
     return photoElements;
 };
-
+//---------Rendering cards---------------------------------------------------------------------------------------------
 const renderCards = (arrayNameCards, arrayLinkCards) => {
     photoElementsList.prepend(createCards(arrayNameCards, arrayLinkCards));
 };
@@ -159,3 +177,5 @@ popUpFormCards.addEventListener('submit',handleFormCardsSubmit);
 
 profileButtonCards.addEventListener('click', popUpCardsOpened);
 popUpCardsCloseIcon.addEventListener('click', popUpCardsClose);
+
+popUpExtendCapCloseIcon.addEventListener('click',popUpExtendCapClose);
