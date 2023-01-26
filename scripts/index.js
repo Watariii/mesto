@@ -1,33 +1,3 @@
-// --------Massives---------------------------------------------------------------------------------------
-const arrayCards = [
-    {
-      name: 'Петропавловск-Камчатский',
-      link: './images/petropavlovs-kamchatskiy-min.jpg'
-    },
-    {
-      name: 'Карелия',
-      link: './images/karelia.jpg'
-    },
-    {
-      name: 'Волга',
-      link: './images/beach-volga.jpg'
-    },
-    {
-      name: 'Домбай',
-      link: './images/dombay.png'
-    }, 
-    {
-      name: 'Гора Эльбрус',
-      link: './images/elbrus.png'
-    },
-    {
-      name: 'Карачаевск',
-      link: './images/karachaevsk-min.jpg'
-    },
-      
-];
-const arrayNameCards = [];
-const arrayLinkCards = [];
 // --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector('.profile__button-info');
 const profileButtonCards = document.querySelector('.profile__button-cards')
@@ -55,67 +25,35 @@ const popUpExtendCap = document.querySelector('.pop-up_type_extend-cap');
 const popUpCapture = document.querySelector('.pop-up__capture');
 const popUpTitleExtendCap = document.querySelector('.pop-up__title_type_extend-cap');
 const popUpExtendCapCloseIcon = document.querySelector('.pop-up__close-icon_type_extend-cap');
-// --------Pop-ups info, cards, extend capture---------------------------------------------------------------------------------------
-const popUpInfoOpened = () => {
-    popUpInfo.classList.add('pop-up_opened');    
+
+const template = document.querySelector('#photo-elements__item').content;
+// --------Pop-ups opening---------------------------------------------------------------------------------------
+const openPopUp = (popUp) => {
+    popUp.classList.add('pop-up_opened');
     popUpFirstname.value = profileFirstname.textContent;
     popUpJob.value = profileJob.textContent;
 };
-
-const popUpInfoClose = () => {
-    popUpInfo.classList.remove('pop-up_opened');
-};
-const popUpCardsOpened = () => {
-    popUpCards.classList.add('pop-up_opened');
-};
-
-const popUpCardsClose = () => {
-    popUpCards.classList.remove('pop-up_opened');
-};
-const popUpExtendCapClose =() => {
-    popUpExtendCap.classList.remove('pop-up_opened');
+// --------Pop-ups closing---------------------------------------------------------------------------------------
+const closePopUp = (popUp) => {
+    popUp.classList.remove('pop-up_opened');
 };
 // --------Handle form for Info---------------------------------------------------------------------------------------
-const handleFormInfoSubmit = evt => {
+const submitHandleFormInfo = evt => {
     evt.preventDefault();
     const changeFirstname = popUpFirstname.value;
     const changeJob = popUpJob.value;
     profileFirstname.textContent = changeFirstname;
     profileJob.textContent = changeJob;
-    popUpInfoClose();
+    closePopUp(popUpInfo)
 };
 // --------Creating two massives from one------------------------------------------------------------------------------
 
-const arrayNameAndLinkCreate = () =>{
-    for (i=0; i<arrayCards.length; ++i) {
-        arrayNameCards[i]=arrayCards[i].name;
-        arrayLinkCards[i]=arrayCards[i].link;
-    }
-}
-arrayNameAndLinkCreate();
-
-//---------Creating cards---------------------------------------------------------------------------------------------
-const createCards = (arrayNameCards, arrayLinkCards) => {
-    const template = `
-        <li>
-        <article class="photo-elements__item">
-        <button class="photo-elements__delete" type="button"></button>
-        <img
-            src=""
-            alt=""
-            class="photo-elements__capture"
-        />
-        <p class="photo-elements__title"></p>
-        <button class="photo-elements__like" type="button"></button>
-        </article>
-        </li>
-        `;
-    const container = document.createElement('div');
-    container.innerHTML = template;
-    const photoElements = container.children[0];
-    photoElements.querySelector('.photo-elements__title').textContent = arrayNameCards;
-    photoElements.querySelector('.photo-elements__capture').setAttribute('src',arrayLinkCards);
-    photoElements.querySelector('.photo-elements__capture').setAttribute('alt',arrayNameCards);
+//---------Creating card---------------------------------------------------------------------------------------------
+const createCard = (arrayCards) => {
+    const photoElements = template.querySelector('li').cloneNode(true);
+    photoElements.querySelector('.photo-elements__title').textContent = arrayCards.name;
+    photoElements.querySelector('.photo-elements__capture').setAttribute('src',arrayCards.link);
+    photoElements.querySelector('.photo-elements__capture').setAttribute('alt',arrayCards.name);
 //----------Creating cards: Toggling like----------------------------------------------------------------------------------------------
     const photoElementsButtonLike = photoElements.querySelector('.photo-elements__like');
     photoElementsButtonLike.addEventListener('click', () => {
@@ -130,52 +68,47 @@ const createCards = (arrayNameCards, arrayLinkCards) => {
     const photoElementsCapture = photoElements.querySelector('.photo-elements__capture');
     photoElementsCapture.addEventListener('click', () => {
         popUpExtendCap.classList.add('pop-up_opened');
-        popUpCapture.setAttribute('src',arrayLinkCards);
-        popUpCapture.setAttribute('alt',arrayNameCards);
-        popUpTitleExtendCap.textContent = arrayNameCards;
+        popUpCapture.setAttribute('src',arrayCards.link);
+        popUpCapture.setAttribute('alt',arrayCards.name);
+        popUpTitleExtendCap.textContent = arrayCards.name;
     })
 //---------Creating cards finish--------------------------------------------------------------------------------------------
     return photoElements;
 };
 //---------Rendering cards---------------------------------------------------------------------------------------------
-const renderCards = (arrayNameCards, arrayLinkCards) => {
-    photoElementsList.prepend(createCards(arrayNameCards, arrayLinkCards));
+const renderCard = (arrayCards) => {
+    photoElementsList.prepend(createCard(arrayCards));
 };
 // --------Adding first six cards---------------------------------------------------------------------------------------
-const AddFirstSixCards = () => {
-    for (i=0; i<arrayCards.length; i+=1) {
-    renderCards(arrayNameCards[i],arrayLinkCards[i])
+const addFirstSixCards = () => {
+    for (i=0; i<arrayCards.length; i++) {
+    renderCard(arrayCards[i]);
 }
 };
-AddFirstSixCards();
+addFirstSixCards();
 // --------Handle form cards for new cards------------------------------------------------------------------------------
-const handleFormCardsSubmit = (evt) => {
+const submitHandleFormCards = (evt) => {
     evt.preventDefault();
     const changeName = popUpName.value;
     const changeLink = popUpLink.value;
-    const newObject ={};
-    
-    newObject.name = changeName;
-    newObject.link = changeLink;
-
-    arrayCards.push(newObject);
-    arrayNameAndLinkCreate();
-    renderCards(changeName,changeLink);
-    
-    popUpName.value='';
-    popUpLink.value='';
-
-    popUpCardsClose();
+    const newObject =
+    {
+        name: changeName,
+        link: changeLink
+    };
+    renderCard(newObject);
+    popUpFormCards.reset();
+    closePopUp(popUpCards);
 };
 // --------Launch functions by events------------------------------------------------------------------------------------
-profileButtonInfo.addEventListener('click', popUpInfoOpened);
-popUpInfoCloseIcon.addEventListener('click', popUpInfoClose);
+profileButtonInfo.addEventListener('click', () => {openPopUp(popUpInfo)});
+popUpInfoCloseIcon.addEventListener('click', () => {closePopUp(popUpInfo)});
 
-popUpFormInfo.addEventListener('submit',handleFormInfoSubmit);
-popUpFormCards.addEventListener('submit',handleFormCardsSubmit);
+popUpFormInfo.addEventListener('submit',submitHandleFormInfo);
+popUpFormCards.addEventListener('submit',submitHandleFormCards);
 
 
-profileButtonCards.addEventListener('click', popUpCardsOpened);
-popUpCardsCloseIcon.addEventListener('click', popUpCardsClose);
+profileButtonCards.addEventListener('click', () => {openPopUp(popUpCards)});
+popUpCardsCloseIcon.addEventListener('click', () => {closePopUp(popUpCards)});
 
-popUpExtendCapCloseIcon.addEventListener('click',popUpExtendCapClose);
+popUpExtendCapCloseIcon.addEventListener('click', () => {closePopUp(popUpExtendCap)});

@@ -17,21 +17,41 @@
           <div class="profile__list">
             <div class="profile__title">
               <h1 class="profile__firstname">Жак-Ив Кусто</h1>
-              <button class="profile__button-info" type="button"></button>
+              <button
+                class="profile__button-info"
+                type="button"
+                aria-label="редактор профиля"
+              ></button>
             </div>
             <h2 class="profile__job">Исследователь океана</h2>
           </div>
         </div>
-        <button class="profile__button-cards" type="button"></button>
+        <button
+          class="profile__button-cards"
+          type="button"
+          aria-label="Новая карточка"
+        ></button>
       </section>
       <section class="photo-elements">
-        <ul class="photo-elements__list"></ul>
+        <ul class="photo-elements__list">
+          <template id="photo-elements__item">
+            <li>
+              <article class="photo-elements__item">
+                <button class="photo-elements__delete" type="button"></button>
+                <img src="" alt="" class="photo-elements__capture" />
+                <p class="photo-elements__title"></p>
+                <button class="photo-elements__like" type="button"></button>
+              </article>
+            </li>
+          </template>
+        </ul>
       </section>
       <section class="pop-up pop-up_type_info">
         <div class="pop-up__container">
           <button
             class="pop-up__close-icon pop-up__close-icon_type_info"
             type="button"
+            aria-label="закрыть"
           ></button>
           <h3 class="pop-up__title">Редактировать профиль</h3>
           <form class="pop-up__form pop-up__form_type_info" name="form">
@@ -40,12 +60,14 @@
               type="text"
               name="firstname"
               placeholder="Имя"
+              required
             />
             <input
               class="pop-up__input pop-up__input_type_job"
               type="text"
               name="job"
               placeholder="О себе"
+              required
             />
             <button class="pop-up__button" type="submit">Сохранить</button>
           </form>
@@ -56,6 +78,7 @@
           <button
             class="pop-up__close-icon pop-up__close-icon_type_cards"
             type="button"
+            aria-label="закрыть"
           ></button>
           <h3 class="pop-up__title">Новое место</h3>
           <form class="pop-up__form pop-up__form_type_cards" name="form">
@@ -64,12 +87,14 @@
               type="text"
               name="name"
               placeholder="Название"
+              required
             />
             <input
               class="pop-up__input pop-up__input_type_link"
-              type="text"
+              type="url"
               name="link"
               placeholder="Ссылка на картинку"
+              required
             />
             <button class="pop-up__button" type="submit">Сохранить</button>
           </form>
@@ -80,8 +105,9 @@
           <button
             class="pop-up__close-icon pop-up__close-icon_type_extend-cap"
             type="button"
+            aria-label="закрыть"
           ></button>
-          <img class="pop-up__capture" src="#" alt="#">
+          <img class="pop-up__capture" src="#" alt="#" />
           <h3 class="pop-up__title pop-up__title_type_extend-cap"></h3>
         </div>
       </section>
@@ -89,6 +115,7 @@
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
+    <script defer src="./scripts/constants.js"></script>
     <script defer src="./scripts/index.js"></script>
   </body>
 </html>
