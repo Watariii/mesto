@@ -30,8 +30,6 @@ const template = document.querySelector('#photo-elements__item').content;
 // --------Pop-ups opening---------------------------------------------------------------------------------------
 const openPopUp = (popUp) => {
     popUp.classList.add('pop-up_opened');
-    popUpFirstname.value = profileFirstname.textContent;
-    popUpJob.value = profileJob.textContent;
 };
 // --------Pop-ups closing---------------------------------------------------------------------------------------
 const closePopUp = (popUp) => {
@@ -49,11 +47,11 @@ const submitHandleFormInfo = evt => {
 // --------Creating two massives from one------------------------------------------------------------------------------
 
 //---------Creating card---------------------------------------------------------------------------------------------
-const createCard = (arrayCards) => {
+const createCard = (name,link) => {
     const photoElements = template.querySelector('li').cloneNode(true);
-    photoElements.querySelector('.photo-elements__title').textContent = arrayCards.name;
-    photoElements.querySelector('.photo-elements__capture').setAttribute('src',arrayCards.link);
-    photoElements.querySelector('.photo-elements__capture').setAttribute('alt',arrayCards.name);
+    photoElements.querySelector('.photo-elements__title').textContent = name;
+    photoElements.querySelector('.photo-elements__capture').setAttribute('src',link);
+    photoElements.querySelector('.photo-elements__capture').setAttribute('alt',name);
 //----------Creating cards: Toggling like----------------------------------------------------------------------------------------------
     const photoElementsButtonLike = photoElements.querySelector('.photo-elements__like');
     photoElementsButtonLike.addEventListener('click', () => {
@@ -67,25 +65,22 @@ const createCard = (arrayCards) => {
 //----------Creating cards: Extended capture---------------------------------------------------------------------------------------------
     const photoElementsCapture = photoElements.querySelector('.photo-elements__capture');
     photoElementsCapture.addEventListener('click', () => {
-        popUpExtendCap.classList.add('pop-up_opened');
-        popUpCapture.setAttribute('src',arrayCards.link);
-        popUpCapture.setAttribute('alt',arrayCards.name);
-        popUpTitleExtendCap.textContent = arrayCards.name;
+        openPopUp(popUpExtendCap);
+        popUpCapture.setAttribute('src',link);
+        popUpCapture.setAttribute('alt',name);
+        popUpTitleExtendCap.textContent = name;
     })
 //---------Creating cards finish--------------------------------------------------------------------------------------------
     return photoElements;
 };
 //---------Rendering cards---------------------------------------------------------------------------------------------
-const renderCard = (arrayCards) => {
-    photoElementsList.prepend(createCard(arrayCards));
+const renderCard = (name,link) => {
+    photoElementsList.prepend(createCard(name,link));
 };
 // --------Adding first six cards---------------------------------------------------------------------------------------
-const addFirstSixCards = () => {
-    for (i=0; i<arrayCards.length; i++) {
-    renderCard(arrayCards[i]);
-}
-};
-addFirstSixCards();
+arrayCards.forEach((item) => {
+    renderCard(item.name, item.link);
+})
 // --------Handle form cards for new cards------------------------------------------------------------------------------
 const submitHandleFormCards = (evt) => {
     evt.preventDefault();
@@ -96,12 +91,14 @@ const submitHandleFormCards = (evt) => {
         name: changeName,
         link: changeLink
     };
-    renderCard(newObject);
+    renderCard(changeName,changeLink);
     popUpFormCards.reset();
     closePopUp(popUpCards);
 };
 // --------Launch functions by events------------------------------------------------------------------------------------
-profileButtonInfo.addEventListener('click', () => {openPopUp(popUpInfo)});
+profileButtonInfo.addEventListener('click', () => {openPopUp(popUpInfo)
+    popUpFirstname.value = profileFirstname.textContent;
+    popUpJob.value = profileJob.textContent;});
 popUpInfoCloseIcon.addEventListener('click', () => {closePopUp(popUpInfo)});
 
 popUpFormInfo.addEventListener('submit',submitHandleFormInfo);
