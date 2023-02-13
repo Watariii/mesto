@@ -36,7 +36,7 @@ const closePopUp = (popUp) => {
     popUp.classList.remove('pop-up_opened');
 };
 // --------Handle form for Info---------------------------------------------------------------------------------------
-const submitHandleFormInfo = evt => {
+const submitHandleFormInfo = (evt) => {
     evt.preventDefault();
     const changeFirstname = popUpFirstname.value;
     const changeJob = popUpJob.value;
