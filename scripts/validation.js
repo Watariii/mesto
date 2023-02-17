@@ -1,24 +1,30 @@
 const formValidationConfig = {
     formSelector: '.pop-up__form',
     inputSelector: '.pop-up__input',
+    submitButtonSelector: '.pop-up__button',
+    inactiveButtonClass: 'pop-up__button_disabled',
     inputErrorClass: 'pop-up__input_type_error',
-    buttonSelector: '.pop-up__button',
-    buttonDisabledClass: 'pop-up__button_disabled',
   };
   function submitDisable (evt) {
     evt.preventDefault();
   }
+
   function enableValidation(config) {
-    const form = document.querySelector(config.formSelector);
-    form.addEventListener('submit', submitDisable);
-    form.addEventListener('input',() => {
-      toggleButton(form,config);
-    })
-    addInputListener(form,config);
-    toggleButton(form,config);
-    
+    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    formList.forEach((form)=>{
+
+      enableFormValidation(form,config);
+    });  
   };
 
+function enableFormValidation(form,config) {
+  form.addEventListener('submit', submitDisable);
+  form.addEventListener('input', () => {
+    toggleButton(form, config);
+  });
+  addInputListener(form, config);
+  toggleButton(form, config);
+}
 
   function handleFormInput (evt,config) {
     const input =evt.target;
@@ -31,15 +37,13 @@ const formValidationConfig = {
       input.classList.add(config.inputErrorClass);
       errorElement.textContent = input.validationMessage;
     };
-    
   };
 
   function toggleButton (form, config) {
-    const buttonSubmit = form.querySelector(config.buttonSelector);
+    const submitButton = form.querySelector(config.submitButtonSelector);
     const isFormValid = form.checkValidity();
-    console.log(isFormValid);
-    buttonSubmit.disabled = !isFormValid;
-    buttonSubmit.classList.toggle(config.buttonDisabledClass,!isFormValid);
+    submitButton.disabled = !isFormValid;
+    submitButton.classList.toggle(config.inactiveButtonClass,!isFormValid);
   }
 
   function addInputListener(form, config) {
@@ -50,5 +54,3 @@ const formValidationConfig = {
       });
     });
   };
-
-  enableValidation(formValidationConfig);

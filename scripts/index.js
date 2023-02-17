@@ -1,9 +1,9 @@
 // --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector('.profile__button-info');
-const profileButtonCards = document.querySelector('.profile__button-cards')
+const profileButtonCards = document.querySelector('.profile__button-cards');
 
 const popUpInfo = document.querySelector('.pop-up_type_info');
-const popUpCards = document.querySelector('.pop-up_type_cards')
+const popUpCards = document.querySelector('.pop-up_type_cards');
 
 const popUpInfoCloseIcon = document.querySelector('.pop-up__close-icon_type_info');
 const popUpCardsCloseIcon = document.querySelector('.pop-up__close-icon_type_cards');
@@ -27,17 +27,38 @@ const popUpTitleExtendCap = document.querySelector('.pop-up__title_type_extend-c
 const popUpExtendCapCloseIcon = document.querySelector('.pop-up__close-icon_type_extend-cap');
 
 const template = document.querySelector('#photo-elements__item').content;
+
+// --------Pop-ups closing by taps on overlay---------------------------------------------------------------------------------------
+const popUpOverlayClosing = (evt) => {
+    const popUpOpened = document.querySelector('.pop-up_opened');
+        if (evt.target===evt.currentTarget) {
+            closePopUp(popUpOpened)
+        } else {
+           evt.stopPropagation(); 
+        }
+};
+// --------Pop-ups closing by Escape---------------------------------------------------------------------------------------
+const popUpEscapeClosing = (evt) => {
+    const popUpOpened = document.querySelector('.pop-up_opened');    
+        if (evt.key === 'Escape') {
+            closePopUp(popUpOpened);    
+        }      
+};
 // --------Pop-ups opening---------------------------------------------------------------------------------------
 const openPopUp = (popUp) => {
     popUp.classList.add('pop-up_opened');
+    document.addEventListener('keydown',popUpEscapeClosing);
+    popUp.addEventListener('mousedown',popUpOverlayClosing)
 };
 // --------Pop-ups closing---------------------------------------------------------------------------------------
 const closePopUp = (popUp) => {
     popUp.classList.remove('pop-up_opened');
+    document.removeEventListener('keydown',popUpEscapeClosing);
+    popUp.addEventListener('mousedown',popUpOverlayClosing);
+
 };
 // --------Handle form for Info---------------------------------------------------------------------------------------
-const submitHandleFormInfo = (evt) => {
-    evt.preventDefault();
+const submitHandleFormInfo = () => {
     const changeFirstname = popUpFirstname.value;
     const changeJob = popUpJob.value;
     profileFirstname.textContent = changeFirstname;
@@ -69,7 +90,7 @@ const createCard = (name,link) => {
         popUpCapture.setAttribute('src',link);
         popUpCapture.setAttribute('alt',name);
         popUpTitleExtendCap.textContent = name;
-    })
+    });
 //---------Creating cards finish--------------------------------------------------------------------------------------------
     return photoElements;
 };
@@ -82,8 +103,7 @@ arrayCards.forEach((item) => {
     renderCard(item.name, item.link);
 })
 // --------Handle form cards for new cards------------------------------------------------------------------------------
-const submitHandleFormCards = (evt) => {
-    evt.preventDefault();
+const submitHandleFormCards = () => {
     const changeName = popUpName.value;
     const changeLink = popUpLink.value;
     const newObject =
@@ -95,17 +115,38 @@ const submitHandleFormCards = (evt) => {
     popUpFormCards.reset();
     closePopUp(popUpCards);
 };
-// --------Launch functions by events------------------------------------------------------------------------------------
-profileButtonInfo.addEventListener('click', () => {openPopUp(popUpInfo)
+// --------Set last value for pop-up form info------------------------------------------------------------------------------------
+const popUpFormInfoSetLastValue = () => {
     popUpFirstname.value = profileFirstname.textContent;
-    popUpJob.value = profileJob.textContent;});
-popUpInfoCloseIcon.addEventListener('click', () => {closePopUp(popUpInfo)});
+    popUpJob.value = profileJob.textContent;
+};
+
+// --------Launch functions by events------------------------------------------------------------------------------------
+profileButtonInfo.addEventListener('click', () => {
+    openPopUp(popUpInfo)
+    popUpFormInfoSetLastValue();
+    enableValidation(formValidationConfig); 
+  });
+
+popUpInfoCloseIcon.addEventListener('click', () => {
+    closePopUp(popUpInfo);
+});
 
 popUpFormInfo.addEventListener('submit',submitHandleFormInfo);
-popUpFormCards.addEventListener('submit',submitHandleFormCards);
 
+popUpFormCards.addEventListener('submit',() => {
+    submitHandleFormCards(); 
+});
 
-profileButtonCards.addEventListener('click', () => {openPopUp(popUpCards)});
-popUpCardsCloseIcon.addEventListener('click', () => {closePopUp(popUpCards)});
+profileButtonCards.addEventListener('click', () => {  
+    openPopUp(popUpCards);
+    enableValidation(formValidationConfig);
+  });
 
-popUpExtendCapCloseIcon.addEventListener('click', () => {closePopUp(popUpExtendCap)});
+popUpCardsCloseIcon.addEventListener('click', () => {
+    closePopUp(popUpCards)
+});
+
+popUpExtendCapCloseIcon.addEventListener('click', () => {
+    closePopUp(popUpExtendCap)
+});
