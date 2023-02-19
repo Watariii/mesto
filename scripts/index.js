@@ -46,8 +46,6 @@ const openPopUp = (popUp) => {
   popUp.classList.add("pop-up_opened");
   document.addEventListener("keydown", handleEscape);
   popUp.addEventListener("mousedown", handleOverlay);
-  const form = popUp.querySelector(formValidationConfig.formSelector);
-  toggleButton(form, formValidationConfig);
 };
 // --------Pop-ups closing---------------------------------------------------------------------------------------
 const closePopUp = (popUp) => {
