@@ -1,3 +1,7 @@
+import { arrayCards, formValidationConfig } from "./constants.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 // --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector(".profile__button-info");
 const profileButtonCards = document.querySelector(".profile__button-cards");
@@ -18,13 +22,7 @@ const popUpFormCards = document.querySelector(".pop-up__form_type_cards");
 
 const photoElementsList = document.querySelector(".photo-elements__list");
 
-const popUpExtendCap = document.querySelector(".pop-up_type_extend-cap");
-const popUpCapture = document.querySelector(".pop-up__capture");
-const popUpTitleExtendCap = document.querySelector(
-  ".pop-up__title_type_extend-cap"
-);
-
-const template = document.querySelector("#photo-elements__item").content;
+const templateSelector = "#photo-elements__item";
 
 // --------Pop-ups closing by taps on overlay---------------------------------------------------------------------------------------
 const handleOverlay = (evt) => {
@@ -61,48 +59,16 @@ const handleInfoFormSubmit = () => {
   profileJob.textContent = changeJob;
   closePopUp(popUpInfo);
 };
-// --------Creating two massives from one------------------------------------------------------------------------------
 
-//---------Creating card---------------------------------------------------------------------------------------------
-const createCard = (name, link) => {
-  const photoElements = template.querySelector("li").cloneNode(true);
-  const photoElementCapture = photoElements.querySelector(
-    ".photo-elements__capture"
-  );
-  photoElements.querySelector(".photo-elements__title").textContent = name;
-  photoElementCapture.setAttribute("src", link);
-  photoElementCapture.setAttribute("alt", name);
-  //----------Creating cards: Toggling like----------------------------------------------------------------------------------------------
-  const photoElementsButtonLike = photoElements.querySelector(
-    ".photo-elements__like"
-  );
-  photoElementsButtonLike.addEventListener("click", () => {
-    photoElementsButtonLike.classList.toggle("photo-elements__like_active");
-  });
-  //----------Creating cards: Deleting cards---------------------------------------------------------------------------------------------
-  const photoElementsButtonDelete = photoElements.querySelector(
-    ".photo-elements__delete"
-  );
-  photoElementsButtonDelete.addEventListener("click", () => {
-    photoElements.remove();
-  });
-  //----------Creating cards: Extended capture---------------------------------------------------------------------------------------------
-  photoElementCapture.addEventListener("click", () => {
-    openPopUp(popUpExtendCap);
-    popUpCapture.setAttribute("src", link);
-    popUpCapture.setAttribute("alt", name);
-    popUpTitleExtendCap.textContent = name;
-  });
-  //---------Creating cards finish--------------------------------------------------------------------------------------------
-  return photoElements;
-};
 //---------Rendering cards---------------------------------------------------------------------------------------------
-const renderCard = (name, link) => {
-  photoElementsList.prepend(createCard(name, link));
+const renderCard = (cardElement) => {
+  photoElementsList.prepend(cardElement);
 };
 // --------Adding first six cards---------------------------------------------------------------------------------------
 arrayCards.forEach((item) => {
-  renderCard(item.name, item.link);
+  const card = new Card(item, templateSelector, openPopUp);
+  const cardElement = card.getCard();
+  renderCard(cardElement);
 });
 // --------Handle form cards for new cards------------------------------------------------------------------------------
 const handleCardFormSubmit = () => {
@@ -112,7 +78,7 @@ const handleCardFormSubmit = () => {
     name: changeName,
     link: changeLink,
   };
-  renderCard(changeName, changeLink);
+  renderCard(new Card(newObject, templateSelector, openPopUp).getCard());
   closePopUp(popUpCards);
 };
 // --------Set last value for pop-up form info------------------------------------------------------------------------------------
@@ -134,6 +100,10 @@ addCloseButtonListener();
 profileButtonInfo.addEventListener("click", () => {
   fillProfileInputs();
   openPopUp(popUpInfo);
+  new FormValidator(
+    formValidationConfig,
+    popUpInfo.querySelector(formValidationConfig.formSelector)
+  ).enableFormValidation();
 });
 
 popUpFormInfo.addEventListener("submit", handleInfoFormSubmit);
@@ -145,4 +115,8 @@ popUpFormCards.addEventListener("submit", () => {
 
 profileButtonCards.addEventListener("click", () => {
   openPopUp(popUpCards);
+  new FormValidator(
+    formValidationConfig,
+    popUpCards.querySelector(formValidationConfig.formSelector)
+  ).enableFormValidation();
 });
