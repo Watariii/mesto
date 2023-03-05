@@ -22,7 +22,30 @@ const popUpFormCards = document.querySelector(".pop-up__form_type_cards");
 
 const photoElementsList = document.querySelector(".photo-elements__list");
 
+const popUpExtendCap = document.querySelector(".pop-up_type_extend-cap");
+const popUpCapture = document.querySelector(".pop-up__capture");
+const popUpTitleExtendCap = document.querySelector(
+  ".pop-up__title_type_extend-cap"
+);
+
+const formValidators = {};
+
 const templateSelector = "#photo-elements__item";
+
+// --------Enable validation and add name form validator in object "formValidators"------------------------------------------------------------------------------------
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(formValidationConfig);
+
+console.log(formValidators)
 
 // --------Pop-ups closing by taps on overlay---------------------------------------------------------------------------------------
 const handleOverlay = (evt) => {
@@ -51,6 +74,13 @@ const closePopUp = (popUp) => {
   document.removeEventListener("keydown", handleEscape);
   popUp.removeEventListener("mousedown", handleOverlay);
 };
+// --------Pop-up capture opening (link for class Card)---------------------------------------------------------------------------
+const handleClickCard = (name, link) => {
+  popUpCapture.src = link;
+  popUpCapture.alt = name;
+  popUpTitleExtendCap.textContent = name;
+  openPopUp(popUpExtendCap);
+};
 // --------Handle form for Info---------------------------------------------------------------------------------------
 const handleInfoFormSubmit = () => {
   const changeFirstname = popUpFirstName.value;
@@ -59,15 +89,19 @@ const handleInfoFormSubmit = () => {
   profileJob.textContent = changeJob;
   closePopUp(popUpInfo);
 };
-
+// --------Creating cards---------------------------------------------------------------------------------------
+const createCard = (arrayCards) => {
+  const card = new Card(arrayCards, templateSelector, handleClickCard);
+  const cardElement = card.getCard();
+  return cardElement;
+};
 //---------Rendering cards---------------------------------------------------------------------------------------------
 const renderCard = (cardElement) => {
   photoElementsList.prepend(cardElement);
 };
 // --------Adding first six cards---------------------------------------------------------------------------------------
 arrayCards.forEach((item) => {
-  const card = new Card(item, templateSelector, openPopUp);
-  const cardElement = card.getCard();
+  const cardElement = createCard(item);
   renderCard(cardElement);
 });
 // --------Handle form cards for new cards------------------------------------------------------------------------------
@@ -78,7 +112,7 @@ const handleCardFormSubmit = () => {
     name: changeName,
     link: changeLink,
   };
-  renderCard(new Card(newObject, templateSelector, openPopUp).getCard());
+  renderCard(createCard(newObject));
   closePopUp(popUpCards);
 };
 // --------Set last value for pop-up form info------------------------------------------------------------------------------------
@@ -99,11 +133,8 @@ addCloseButtonListener();
 
 profileButtonInfo.addEventListener("click", () => {
   fillProfileInputs();
+  formValidators["form-info"].toggleButton();
   openPopUp(popUpInfo);
-  new FormValidator(
-    formValidationConfig,
-    popUpInfo.querySelector(formValidationConfig.formSelector)
-  ).enableFormValidation();
 });
 
 popUpFormInfo.addEventListener("submit", handleInfoFormSubmit);
@@ -114,9 +145,6 @@ popUpFormCards.addEventListener("submit", () => {
 });
 
 profileButtonCards.addEventListener("click", () => {
+  formValidators["form-cards"].toggleButton();
   openPopUp(popUpCards);
-  new FormValidator(
-    formValidationConfig,
-    popUpCards.querySelector(formValidationConfig.formSelector)
-  ).enableFormValidation();
 });
