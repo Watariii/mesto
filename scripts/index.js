@@ -45,7 +45,6 @@ const enableValidation = (config) => {
 
 enableValidation(formValidationConfig);
 
-console.log(formValidators)
 
 // --------Pop-ups closing by taps on overlay---------------------------------------------------------------------------------------
 const handleOverlay = (evt) => {
