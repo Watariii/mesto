@@ -23,6 +23,7 @@ const arrayCards = [
     name: "Карачаевск",
     link: "./images/karachaevsk-min.jpg",
   },
+  
 ];
 
 const formValidationConfig = {
