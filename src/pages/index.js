@@ -5,6 +5,7 @@ import Section from "../components/Section.js";
 import PopUpWithImage from "../components/PopUpWithImage.js";
 import PopUpWithForm from "../components/PopUpWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import "./index.css";
 
 // --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector(".profile__button-info");
@@ -77,7 +78,7 @@ const handleCardFormSubmit = (object) => {
   cardsList.addCard(createCard(newObject));
 };
 // --------Create objects of classes pop-ups------------------------------------------------
-const userInfo = new UserInfo({profileFirstName, profileJob});
+const userInfo = new UserInfo({ profileFirstName, profileJob });
 
 const popUpFormInfo = new PopUpWithForm(popUpInfo, handleInfoFormSubmit);
 popUpFormInfo.setEventListeners();
@@ -90,7 +91,6 @@ profileButtonInfo.addEventListener("click", () => {
   userInfo.getUserInfo();
   popUpFormInfo.openPopUp();
   formValidators["form-info"].toggleButton();
-  
 });
 
 profileButtonCards.addEventListener("click", () => {

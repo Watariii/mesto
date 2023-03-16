@@ -1,29 +1,35 @@
+import petropavlovsImage from "../images/petropavlovs-kamchatskiy-min.jpg";
+import kareliaImage from "../images/karelia.jpg";
+import volgaImage from "../images/beach-volga.jpg";
+import dombayImage from "../images/dombay.png";
+import elbrusImage from "../images/elbrus.png";
+import karachaevskImage from "../images/karachaevsk-min.jpg";
+
 const arrayCards = [
   {
     name: "Петропавловск-Камчатский",
-    link: "./images/petropavlovs-kamchatskiy-min.jpg",
+    link: petropavlovsImage,
   },
   {
     name: "Карелия",
-    link: "./images/karelia.jpg",
+    link: kareliaImage,
   },
   {
     name: "Волга",
-    link: "./images/beach-volga.jpg",
+    link: volgaImage,
   },
   {
     name: "Домбай",
-    link: "./images/dombay.png",
+    link: dombayImage,
   },
   {
     name: "Гора Эльбрус",
-    link: "./images/elbrus.png",
+    link: elbrusImage,
   },
   {
     name: "Карачаевск",
-    link: "./images/karachaevsk-min.jpg",
+    link: karachaevskImage,
   },
-  
 ];
 
 const formValidationConfig = {
