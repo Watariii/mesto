@@ -11,26 +11,8 @@ export default class FormValidator {
   }
 
   enableValidation = () => {
-    this._addListenerSubmit();
-    this._addListenerFormInput();
     this._addListenerInput();
     this.toggleButton();
-  };
-
-  _addListenerSubmit = () => {
-    this._form.addEventListener("submit", (evt) => {
-      this._disableReload(evt);
-    });
-  };
-
-  _disableReload = (evt) => {
-    evt.preventDefault();
-  };
-
-  _addListenerFormInput = () => {
-    this._form.addEventListener("input", () => {
-      this.toggleButton();
-    });
   };
 
   toggleButton = () => {
@@ -43,23 +25,30 @@ export default class FormValidator {
   };
 
   _addListenerInput() {
-    this._inputList.forEach((item) => {
-      item.addEventListener("input", (evt) => {
-        this._handleFormInput(evt);
+    this._inputList.forEach((input) => {
+      input.addEventListener("input", () => {
+        this._handleFormInput(input);
+        this.toggleButton();
       });
     });
   }
 
-  _handleFormInput(evt) {
-    const input = evt.target;
-    const inputId = input.id;
-    const errorElement = this._form.querySelector(`#${inputId}-error`);
+  _handleFormInput(input) {
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
     if (input.validity.valid) {
-      input.classList.remove(this._inputErrorClass);
-      errorElement.textContent = "";
+      this._hideErrorMessage(input,errorElement)
     } else {
-      input.classList.add(this._inputErrorClass);
-      errorElement.textContent = input.validationMessage;
+      this._showErrorMessage(input,errorElement)
     }
+  }
+
+  _showErrorMessage(input,errorElement) {
+    input.classList.add(this._inputErrorClass);
+    errorElement.textContent = input.validationMessage;
+  }
+
+  _hideErrorMessage(input,errorElement) {
+    input.classList.remove(this._inputErrorClass);
+    errorElement.textContent = "";
   }
 }

@@ -1,28 +1,23 @@
 export default class UserInfo {
-  constructor({profileFirstName, profileJob}) {
-    this._profileFirstName = profileFirstName;
-    this._profileJob = profileJob;
-    this._popUpFirstName = document.querySelector(
-      ".pop-up__input_type_firstname"
-    );
-    this._popUpJob = document.querySelector(".pop-up__input_type_job");
-    this._newObject = {};
+  constructor({ profileFirstNameSelector, profileJobSelector }) {
+    this._profileFirstName = document.querySelector(profileFirstNameSelector);
+    this._profileJob = document.querySelector(profileJobSelector);
+
+    this.newObject = {};
   }
 
   getUserInfo() {
-    this._popUpFirstName.value = this._profileFirstName.textContent;
-    this._popUpJob.value = this._profileJob.textContent;
-    const changeName = this._popUpFirstName.value;
-    const changeJob = this._popUpJob.value;
-    this._newObject = {name:changeName, job:changeJob};
+    this.newObject = {
+      name: this._profileFirstName.textContent,
+      job: this._profileJob.textContent,
+    };
 
-    return this._newObject;
+    return this.newObject;
   }
 
   setUserInfo(object) {
-    this._profileFirstName.textContent = object.firstInputForm;
-    this._profileJob.textContent = object.secondInputForm;
-
-    
+    const { firstname, job, ...other } = object;
+    this._profileFirstName.textContent = firstname;
+    this._profileJob.textContent = job;
   }
 }

@@ -10,20 +10,19 @@ import "./index.css";
 // --------Variables---------------------------------------------------------------------------------------
 const profileButtonInfo = document.querySelector(".profile__button-info");
 const profileButtonCards = document.querySelector(".profile__button-cards");
+const popUpInputFirstName = document.querySelector(".pop-up__input_type_firstname");
+const popUpInputJob = document.querySelector(".pop-up__input_type_job");
 
-const popUpInfo = document.querySelector(".pop-up_type_info");
-const popUpCards = document.querySelector(".pop-up_type_cards");
-
-const profileFirstName = document.querySelector(".profile__firstname");
-const profileJob = document.querySelector(".profile__job");
-
-const photoElementsList = document.querySelector(".photo-elements__list");
-
-const popUpExtendCap = document.querySelector(".pop-up_type_extend-cap");
-
-const formValidators = {};
+const popUpInfoSelector = ".pop-up_type_info";
+const popUpCardsSelector = ".pop-up_type_cards";
+const popUpExtendCapSelector = ".pop-up_type_extend-cap";
+const profileFirstNameSelector = ".profile__firstname";
+const profileJobSelector = ".profile__job";
+const photoElementsSelector = ".photo-elements__list";
 
 const templateSelector = "#photo-elements__item";
+
+const formValidators = {};
 
 // --------Enable validation and add name form validator in object "formValidators"------------------------------------------------------------------------------------
 const enableValidation = (config) => {
@@ -40,15 +39,21 @@ enableValidation(formValidationConfig);
 
 // --------Pop-up capture opening (class Card)---------------------------------------------------------------------------
 const handleClickCard = (name, link) => {
-  const popUpWithImage = new PopUpWithImage(popUpExtendCap, name, link);
-  popUpWithImage.openPopUp();
+  popUpWithImage.open({ name, link });
   popUpWithImage.setEventListeners();
 };
 // --------Handle form for Info (class PopUpWithForm)---------------------------------------------------------------------------------------
 function handleInfoFormSubmit(object) {
   userInfo.setUserInfo(object);
-  popUpFormInfo.closePopUp();
+  popUpFormInfo.close();
 }
+// --------Filling pop-up info form before opening (class UserInfo)---------------------------------------------------------------------------------------
+function fillPopUpInfoForm() {
+  const newObject = userInfo.getUserInfo();
+  popUpInputFirstName.value = newObject.name;
+  popUpInputJob.value = newObject.job;
+
+};
 // --------Creating cards---------------------------------------------------------------------------------------
 const createCard = (item) => {
   const card = new Card(item, templateSelector, handleClickCard);
@@ -65,37 +70,41 @@ const cardsList = new Section(
       cardsList.addCard(cardElement);
     },
   },
-  photoElementsList
+  photoElementsSelector
 );
 cardsList.renderCards();
 
 // --------Handle form cards for new cards (class PopUpWithImage)------------------------------------------------------------------------------
 const handleCardFormSubmit = (object) => {
-  const newObject = {
-    name: object.firstInputForm,
-    link: object.secondInputForm,
-  };
-  cardsList.addCard(createCard(newObject));
+  const { name, link } = object;
+  cardsList.addCard(createCard({ name, link }));
 };
 // --------Create objects of classes pop-ups------------------------------------------------
-const userInfo = new UserInfo({ profileFirstName, profileJob });
+const popUpWithImage = new PopUpWithImage(popUpExtendCapSelector);
 
-const popUpFormInfo = new PopUpWithForm(popUpInfo, handleInfoFormSubmit);
+const userInfo = new UserInfo({ profileFirstNameSelector, profileJobSelector });
+
+const popUpFormInfo = new PopUpWithForm(
+  popUpInfoSelector,
+  handleInfoFormSubmit
+);
 popUpFormInfo.setEventListeners();
 
-const popUpFormCard = new PopUpWithForm(popUpCards, handleCardFormSubmit);
+const popUpFormCard = new PopUpWithForm(
+  popUpCardsSelector,
+  handleCardFormSubmit
+);
 popUpFormCard.setEventListeners();
 
 // --------Launch functions by events------------------------------------------------------------------------------------
 profileButtonInfo.addEventListener("click", () => {
-  userInfo.getUserInfo();
-  popUpFormInfo.openPopUp();
+  fillPopUpInfoForm();
+  popUpFormInfo.open();
   formValidators["form-info"].toggleButton();
 });
 
 profileButtonCards.addEventListener("click", () => {
-  const popUpFormCard = new PopUpWithForm(popUpCards, handleCardFormSubmit);
-  popUpFormCard.openPopUp();
+  popUpFormCard.open();
 
   formValidators["form-cards"].toggleButton();
 });
