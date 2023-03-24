@@ -19,10 +19,7 @@ export default class PopUpWithForm extends PopUp {
       this._handleFormSubmit(this._getInputValues());
       this.close();
     });
-    this._closeIcon.addEventListener("click", () => {
-      this.close();
-    });
-    this._popUp.addEventListener("mousedown", this._handleOverlayClose);
+    super.setEventListeners();
   };
 
   _disableReload = (evt) => {

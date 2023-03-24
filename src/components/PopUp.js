@@ -3,7 +3,7 @@ export default class PopUp {
     this._popUp = document.querySelector(popUpSelector);
     this._closeIcon = this._popUp.querySelector(".pop-up__close-icon");
   }
-  open = () => {
+  open() {
     this._popUp.classList.add("pop-up_opened");
     this._setEventListeners();
   };
@@ -14,7 +14,7 @@ export default class PopUp {
     
   };
 
-  setEventListeners = () => {
+  setEventListeners() {
     this._closeIcon.addEventListener("click", () => {
       this.close();
     });

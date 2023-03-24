@@ -40,7 +40,6 @@ enableValidation(formValidationConfig);
 // --------Pop-up capture opening (class Card)---------------------------------------------------------------------------
 const handleClickCard = (name, link) => {
   popUpWithImage.open({ name, link });
-  popUpWithImage.setEventListeners();
 };
 // --------Handle form for Info (class PopUpWithForm)---------------------------------------------------------------------------------------
 function handleInfoFormSubmit(object) {
@@ -81,6 +80,7 @@ const handleCardFormSubmit = (object) => {
 };
 // --------Create objects of classes pop-ups------------------------------------------------
 const popUpWithImage = new PopUpWithImage(popUpExtendCapSelector);
+popUpWithImage.setEventListeners();
 
 const userInfo = new UserInfo({ profileFirstNameSelector, profileJobSelector });
 
