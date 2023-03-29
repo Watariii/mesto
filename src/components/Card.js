@@ -9,7 +9,7 @@ export default class Card {
     this._cardTitle = this._cardElement.querySelector(".photo-elements__title");
     this._cardImage = this._cardElement.querySelector(".photo-elements__capture");
 
-    this._buttonLike = this._cardElement.querySelector(".photo-elements__like");
+    this._buttonLike = this._cardElement.querySelector(".photo-elements__like-button");
     this._buttonDelete = this._cardElement.querySelector(
       ".photo-elements__delete"
     );
@@ -34,7 +34,7 @@ export default class Card {
   };
 
   _handleButtonLikeClick = () => {
-    this._buttonLike.classList.toggle("photo-elements__like_active");
+    this._buttonLike.classList.toggle("photo-elements__like-button_active");
   };
 
   _handleButtonDeleteClick = () => {
