@@ -17,6 +17,7 @@
 @import url(../blocks/profile/__firstname/profile__firstname.css);
 @import url(../blocks/profile/__job/profile__job.css);
 @import url(../blocks/profile/__list/profile__list.css);
+@import url(../blocks/profile/__avatar/_type/profile__avatar_type_hover.css);
 
 @import url(../blocks/photo-elements/photo-elements.css);
 @import url(../blocks/photo-elements/__list/photo-elements__list.css);
@@ -43,6 +44,7 @@
 @import url(../blocks/pop-up/__title/_type/pop-up__title_type_extend-cap.css);
 @import url(../blocks/pop-up/__container/_type/pop-up__container_type_extend-cap.css);
 @import url(../blocks/pop-up/__capture/pop-up__capture.css);
+@import url(../blocks/pop-up/__title/_type/pop-up__title_type_delete-card.css);
 
 @import url(../blocks/error/error.css);
 

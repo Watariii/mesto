@@ -2,16 +2,16 @@ export default class PopUp {
   constructor(popUpSelector) {
     this._popUp = document.querySelector(popUpSelector);
     this._closeIcon = this._popUp.querySelector(".pop-up__close-icon");
+    this._loading = this._popUp.querySelector(".pop-up__button");
   }
   open() {
     this._popUp.classList.add("pop-up_opened");
     this._setEventListeners();
-  };
+  }
 
   close = () => {
     this._deleteEventListeners();
     this._popUp.classList.remove("pop-up_opened");
-    
   };
 
   setEventListeners() {
@@ -19,10 +19,9 @@ export default class PopUp {
       this.close();
     });
     this._popUp.addEventListener("mousedown", this._handleOverlayClose);
-  };
+  }
   _setEventListeners = () => {
     document.addEventListener("keydown", this._handleEscapeClose);
-    
   };
   _deleteEventListeners = () => {
     document.removeEventListener("keydown", this._handleEscapeClose);
@@ -40,4 +39,13 @@ export default class PopUp {
       evt.stopPropagation();
     }
   };
+
+  renderLoading(isLoading) {
+    const defaultText = this._loading.textContent;
+    if (isLoading) {
+      this._loading.textContent = "Сохранение...";
+    } else {
+      this._loading.textContent = "Сохранить";
+    }
+  }
 }

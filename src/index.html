@@ -12,21 +12,23 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img
-            src="<%=require('./images/image.png')%>"
-            alt="Аватар"
-            class="profile__avatar"
-          />
+          <div class="profile__avatar profile__avatar_type_hover">
+            <img
+              src=#
+              alt="Аватар"
+              class="profile__avatar profile__avatar-selector"
+            />
+          </div>
           <div class="profile__list">
             <div class="profile__title">
-              <h1 class="profile__firstname">Жак-Ив Кусто</h1>
+              <h1 class="profile__firstname"></h1>
               <button
                 class="profile__button-info"
                 type="button"
                 aria-label="редактор профиля"
               ></button>
             </div>
-            <h2 class="profile__job">Исследователь океана</h2>
+            <h2 class="profile__job"></h2>
           </div>
         </div>
         <button
@@ -48,7 +50,7 @@
                     class="photo-elements__like-button"
                     type="button"
                   ></button>
-                  <p class="photo-elements__like-counter">6</p>
+                  <p class="photo-elements__like-counter"></p>
                 </div>
               </article>
             </li>
@@ -72,7 +74,7 @@
               id="input-firstname"
               class="pop-up__input pop-up__input_type_firstname"
               type="text"
-              name="firstname"
+              name="name"
               placeholder="Имя"
               required
               minlength="2"
@@ -83,7 +85,7 @@
               id="input-job"
               class="pop-up__input pop-up__input_type_job"
               type="text"
-              name="job"
+              name="about"
               placeholder="О себе"
               required
               minlength="2"
@@ -140,6 +142,45 @@
           ></button>
           <img class="pop-up__capture" src="#" alt="#" />
           <h3 class="pop-up__title pop-up__title_type_extend-cap"></h3>
+        </div>
+      </section>
+      <section class="pop-up pop-up_type_delete-card">
+        <div class="pop-up__container pop-up__container_type_delete-card">
+          <button
+            class="pop-up__close-icon pop-up__close-icon_type_delete-card"
+            type="button"
+            aria-label="закрыть"
+          ></button>
+          <h3 class="pop-up__title pop-up__title_type_delete-card">
+            Вы уверены?
+          </h3>
+          <button class="pop-up__button" type="button">Да</button>
+        </div>
+      </section>
+      <section class="pop-up pop-up_type_avatar">
+        <div class="pop-up__container pop-up__container_type_avatar">
+          <button
+            class="pop-up__close-icon pop-up__close-icon_type_avatar"
+            type="button"
+            aria-label="закрыть"
+          ></button>
+          <h3 class="pop-up__title">Обновить аватар</h3>
+          <form
+            class="pop-up__form pop-up__form_type_avatar"
+            name="form-avatar"
+            novalidate
+          >
+            <input
+              id="input-avatar-link"
+              class="pop-up__input pop-up__input_type_avatar-link"
+              type="url"
+              name="avatar"
+              placeholder="Ссылка на аватар"
+              required
+            />
+            <span id="input-avatar-link-error" class="error"></span>
+            <button class="pop-up__button" type="submit">Сохранить</button>
+          </form>
         </div>
       </section>
     </main>
