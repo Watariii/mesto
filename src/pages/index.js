@@ -1,4 +1,21 @@
-import { formValidationConfig, apiConfig } from "../utils/constants.js";
+import {
+  formValidationConfig,
+  apiConfig,
+  profileButtonInfo,
+  profileButtonCards,
+  profileButtonAvatar,
+  popUpInfoSelector,
+  popUpCardsSelector,
+  popUpAvatarSelector,
+  popUpExtendCapSelector,
+  popUpConfirmDeleteSelector,
+  profileFirstNameSelector,
+  profileJobSelector,
+  profileAvatarSelector,
+  photoElementsSelector,
+  templateSelector,
+  formValidators,
+} from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -8,31 +25,7 @@ import PopUpConfirmDelete from "../components/PopUpConfirmDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import "./index.css";
-
-// --------Variables------------------------------------------------------------------------------------------------------------------------------------------------------
-const profileButtonInfo = document.querySelector(".profile__button-info");
-const profileButtonCards = document.querySelector(".profile__button-cards");
-const profileButtonAvatar = document.querySelector(".profile__avatar");
-
-const popUpInputFirstName = document.querySelector(
-  ".pop-up__input_type_firstname"
-);
-const popUpInputJob = document.querySelector(".pop-up__input_type_job");
-
-const popUpInfoSelector = ".pop-up_type_info";
-const popUpCardsSelector = ".pop-up_type_cards";
-const popUpAvatarSelector = ".pop-up_type_avatar";
-const popUpExtendCapSelector = ".pop-up_type_extend-cap";
-const popUpConfirmDeleteSelector = ".pop-up_type_delete-card";
-const profileFirstNameSelector = ".profile__firstname";
-const profileJobSelector = ".profile__job";
-const profileAvatarSelector = ".profile__avatar-selector";
-const photoElementsSelector = ".photo-elements__list";
-
-const templateSelector = "#photo-elements__item";
-
-const formValidators = {};
-
+let userId
 // --------Enable validation and add name form validator in object "formValidators"------------------------------------------------------------------------------------
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -62,14 +55,12 @@ function handleInfoFormSubmit(object) {
       alert(err);
     })
     .finally(() => {
-      popUpFormInfo.renderLoading(false);
+      popUpFormInfo.renderLoadingSubmitButton(false);
     });
 }
 // --------Filling pop-up info form before opening (class UserInfo)---------------------------------------------------------------------------------------------------------
 function fillPopUpInfoForm() {
-  const newObject = userInfo.getUserInfo();
-  popUpInputFirstName.value = newObject.name;
-  popUpInputJob.value = newObject.about;
+  popUpFormInfo.getInputValues(userInfo.getUserInfo());
 }
 
 // --------Creating cards---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +72,8 @@ const createCard = (item) => {
     api,
     (cardElement, idCard) => {
       popUpConfirmDelete.open(cardElement, idCard);
-    }
+    },
+    userId
   );
   const cardElement = card.getCard();
   return cardElement;
@@ -99,12 +91,13 @@ const handleCardFormSubmit = (object) => {
     .addNewCard(object)
     .then((cardElement) => {
       cardsList.addCard(createCard(cardElement));
+      popUpFormCard.close();
     })
     .catch((err) => {
       alert(err);
     })
     .finally(() => {
-      popUpFormCard.renderLoading(false);
+      popUpFormCard.renderLoadingSubmitButton(false);
     });
 };
 // --------Handle form avatar for ubdate avatar (class PopUpWithForm)------------------------------------------------------------------------------
@@ -112,13 +105,14 @@ const handleAvatarFormSubmit = (objectAvatar) => {
   api
     .updateAvatar(objectAvatar)
     .then((dataUser) => {
-      userInfo.setUserAvatar(dataUser.avatar);
+      userInfo.setUserInfo(dataUser);
+      popUpFormAvatar.close();
     })
     .catch((err) => {
       alert(err);
     })
     .finally(() => {
-      popUpFormAvatar.renderLoading(false);
+      popUpFormAvatar.renderLoadingSubmitButton(false);
     });
 };
 // --------Create objects of classes pop-ups------------------------------------------------
@@ -157,6 +151,7 @@ const popUpConfirmDelete = new PopUpConfirmDelete(
       .then(() => {
         cardElement.remove();
         cardElement = null;
+        popUpConfirmDelete.this.close();
       })
       .catch((err) => {
         alert(err);
@@ -186,10 +181,10 @@ profileButtonAvatar.addEventListener("click", () => {
 // --------Creating cards by api (class Api)--------------------------------------------------------------
 const api = new Api(apiConfig);
 Promise.all([api.getInitialCards(), api.getUserInfo()])
-  .then((data) => {
-    cardsList.renderCards(data[0].reverse());
-    userInfo.setUserInfo(data[1]);
-    userInfo.setUserAvatar(data[1].avatar);
+  .then(([cards, userData]) => {
+    cardsList.renderCards(cards.reverse());
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
   })
   .catch((err) => {
     alert(err);

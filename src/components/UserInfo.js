@@ -20,13 +20,14 @@ export default class UserInfo {
     return this.newObject;
   }
 
-  setUserInfo(object) {
-    const { name, about, ...other } = object;
+  setUserInfo({ name, about, avatar, _id }) {
     this._profileFirstName.textContent = name;
     this._profileJob.textContent = about;
+    this._profileAvatar.src = avatar;
+    this._userId = _id;
   }
 
-  setUserAvatar(avatar) {
-    this._profileAvatar.src = avatar;
-  }
+getUserId(){
+  return this._userId
+}
 }

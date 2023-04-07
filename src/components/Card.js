@@ -4,7 +4,8 @@ export default class Card {
     templateSelector,
     handleClickCard,
     api,
-    handleConfirmDelete
+    handleConfirmDelete,
+    myId
   ) {
     this._name = card.name;
     this._link = card.link;
@@ -15,6 +16,7 @@ export default class Card {
     this._handleClickCard = handleClickCard;
     this._api = api;
     this._handleConfirmDelete = handleConfirmDelete;
+    this._myId = myId;
 
     this._cardElement = this._template.querySelector("li").cloneNode(true);
     this._cardTitle = this._cardElement.querySelector(".photo-elements__title");
@@ -41,7 +43,6 @@ export default class Card {
     this._setAmountLikes();
     this._setEventListeners();
     this._handleButtonLike();
-
     return this._cardElement;
   };
 
@@ -67,44 +68,20 @@ export default class Card {
   };
 
   _handleButtonLike = () => {
-    this._api
-      .getUserInfo()
-      .then((data) => {
-        return data._id;
-      })
-      .then((meId) => {
-        this._likes.forEach((item) => {
-          if (item._id === meId) {
-            this._buttonLike.classList.add(
-              "photo-elements__like-button_active"
-            );
-          } else {
-            this._buttonLike.classList.remove(
-              "photo-elements__like-button_active"
-            );
-          }
-        });
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    this._likes.forEach((item) => {
+      if (item._id === this._myId) {
+        this._buttonLike.classList.add("photo-elements__like-button_active");
+      } else {
+        this._buttonLike.classList.remove("photo-elements__like-button_active");
+      }
+    });
   };
 
   _hideButtonDelete() {
-    this._api
-      .getUserInfo()
-      .then((data) => {
-        return data._id;
-      })
-      .then((meId) => {
-        if (meId != this._idOwner) {
-          this._buttonDelete.remove();
-          this._buttonDelete = null;
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (this._myId != this._idOwner) {
+      this._buttonDelete.remove();
+      this._buttonDelete = null;
+    }
   }
 
   _setAmountLikes() {
