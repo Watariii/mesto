@@ -25,7 +25,9 @@ import PopUpConfirmDelete from "../components/PopUpConfirmDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import "./index.css";
-let userId
+
+let userId;
+
 // --------Enable validation and add name form validator in object "formValidators"------------------------------------------------------------------------------------
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -151,7 +153,7 @@ const popUpConfirmDelete = new PopUpConfirmDelete(
       .then(() => {
         cardElement.remove();
         cardElement = null;
-        popUpConfirmDelete.this.close();
+        popUpConfirmDelete.close();
       })
       .catch((err) => {
         alert(err);
@@ -182,9 +184,9 @@ profileButtonAvatar.addEventListener("click", () => {
 const api = new Api(apiConfig);
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, userData]) => {
-    cardsList.renderCards(cards.reverse());
     userInfo.setUserInfo(userData);
-    userId = userData._id;
+    userId = userInfo.getUserId();
+    cardsList.renderCards(cards.reverse());
   })
   .catch((err) => {
     alert(err);
