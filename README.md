@@ -1,5 +1,8 @@
 # Проект: Место
 
+* [Ссылка на репозиторий GitHub](https://watariii.github.io/mesto/)
+* [Ссылка на демонстрацию работы проекта](https://sukhov-nikita.ru/mesto/dist/)
+
 ### Обзор
 * Интро
 * Функционал
@@ -36,10 +39,8 @@
 
 **Figma**
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1), 
-                            (https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1),
-                            (https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1)
+* [Ссылка на макет №1 в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Ссылка на макет №2 в Figma](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
+* [Ссылка на макет №3 в Figma](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1)  
 
-**GitHub**
 
-* [Ссылка проекта на GitHub] (https://watariii.github.io/mesto/)
